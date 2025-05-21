@@ -21,6 +21,17 @@ public class GlobalExceptionHandler {
 	    errorBody.put("message", ex.getMessage());
 	    return new ResponseEntity<>(errorBody, HttpStatus.NOT_FOUND);
 	}
+	
+
+    @ExceptionHandler(BorrowLimitExceededException.class)
+    public ResponseEntity<String> handleBorrowLimitException(BorrowLimitExceededException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<String> handleResourceNotFound(ResourceNotFoundException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
 
     // Handle generic exceptions
     @ExceptionHandler(Exception.class)
