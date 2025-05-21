@@ -42,6 +42,18 @@ public class BookDAO {
         jdbcTemplate.update("DELETE FROM book WHERE id = ?", id);
     }
 
+    public int getAvailableCopies(Long bookId) {
+        return jdbcTemplate.queryForObject("SELECT available_copies FROM books WHERE id = ?", Integer.class, bookId);
+    }
+
+    public void decrementAvailableCopies(Long bookId) {
+        jdbcTemplate.update("UPDATE books SET available_copies = available_copies - 1 WHERE id = ?", bookId);
+    }
+
+    public void incrementAvailableCopies(Long bookId) {
+        jdbcTemplate.update("UPDATE books SET available_copies = available_copies + 1 WHERE id = ?", bookId);
+    }
+
     public List<Book> search(String keyword) {
         String query = "SELECT * FROM book WHERE title ILIKE ? OR author ILIKE ? OR isbn ILIKE ?";
         String likeKeyword = "%" + keyword + "%";
