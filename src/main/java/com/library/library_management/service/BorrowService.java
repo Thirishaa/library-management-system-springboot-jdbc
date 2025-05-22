@@ -1,6 +1,7 @@
 package com.library.library_management.service;
 
 import com.library.library_management.dao.BorrowDAO;
+import com.library.library_management.exception.BookNotAvailableException;
 import com.library.library_management.exception.BorrowLimitExceededException;
 import com.library.library_management.model.Borrow;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +27,9 @@ public class BorrowService {
 
         int availableCopies = borrowDAO.getAvailableCopies(borrow.getBookId());
         if (availableCopies <= 0) {
-            throw new RuntimeException("Book is not available for borrowing.");
+            throw new BookNotAvailableException("Book is not available for borrowing.");
         }
+
 
         LocalDate today = LocalDate.now();
         borrow.setBorrowDate(today);

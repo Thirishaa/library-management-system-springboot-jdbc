@@ -1,14 +1,28 @@
 package com.library.library_management.model;
 
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.time.LocalDate;
 
 public class Book {
     private Long id;
-    private String title;
+
     private String author;
+
+    @NotBlank(message = "Title is mandatory")
+    private String title;
+
+    @Pattern(regexp = "\\d{13}", message = "ISBN must be a 13-digit number")
     private String isbn;
-    private LocalDate publishedDate;
+
+    @Min(value = 0, message = "Available copies cannot be negative")
     private int availableCopies;
+
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    private LocalDate publishedDate;
 
     // Getters and Setters
     public Long getId() { return id; }

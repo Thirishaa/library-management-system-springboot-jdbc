@@ -1,6 +1,6 @@
 package com.library.library_management.service;
 import com.library.library_management.exception.BookNotAvailableException;
-
+import com.library.library_management.exception.ResourceNotFoundException;
 import com.library.library_management.dao.BookDAO;
 import com.library.library_management.model.Book;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,20 @@ public class BookService {
 
     public void updateBook(Long id, Book book) { bookDAO.update(id, book); }
 
-    public void deleteBook(Long id) { bookDAO.delete(id); }
+
+    public void deleteBook(Long id) {
+        try {
+            bookDAO.delete(id);
+        } catch (IllegalStateException e) {
+            // Book is borrowed, cannot delete
+            throw new BookNotAvailableException(e.getMessage());
+        } catch (IllegalArgumentException e) {
+            // Book does not exist
+            throw new ResourceNotFoundException(e.getMessage());
+        }
+    }
+
+    
 
     public List<Book> searchBooks(String keyword) { return bookDAO.search(keyword); }
 }

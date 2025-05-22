@@ -38,20 +38,37 @@ public class BookDAO {
                 book.getTitle(), book.getAuthor(), book.getIsbn(), book.getPublishedDate(), book.getAvailableCopies(), id);
     }
 
+    public boolean isBookBorrowed(Long bookId) {
+        String sql = "SELECT COUNT(*) FROM borrow WHERE book_id = ?";
+        Integer count = jdbcTemplate.queryForObject(sql, Integer.class, bookId);
+        return count != null && count > 0;
+    }
+
+    
     public void delete(Long id) {
+        Book book = findById(id);
+        if (book == null) {
+            throw new IllegalArgumentException("Book with id " + id + " does not exist.");
+        }
+
+        if (isBookBorrowed(id)) {
+            throw new IllegalStateException("Cannot delete book. It is currently referenced in borrow records.");
+        }
+
         jdbcTemplate.update("DELETE FROM book WHERE id = ?", id);
     }
 
+
     public int getAvailableCopies(Long bookId) {
-        return jdbcTemplate.queryForObject("SELECT available_copies FROM books WHERE id = ?", Integer.class, bookId);
+        return jdbcTemplate.queryForObject("SELECT available_copies FROM book WHERE id = ?", Integer.class, bookId);
     }
 
     public void decrementAvailableCopies(Long bookId) {
-        jdbcTemplate.update("UPDATE books SET available_copies = available_copies - 1 WHERE id = ?", bookId);
+        jdbcTemplate.update("UPDATE book SET available_copies = available_copies - 1 WHERE id = ?", bookId);
     }
 
     public void incrementAvailableCopies(Long bookId) {
-        jdbcTemplate.update("UPDATE books SET available_copies = available_copies + 1 WHERE id = ?", bookId);
+        jdbcTemplate.update("UPDATE book SET available_copies = available_copies + 1 WHERE id = ?", bookId);
     }
 
     public List<Book> search(String keyword) {

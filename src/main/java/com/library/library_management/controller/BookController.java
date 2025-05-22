@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import jakarta.validation.Valid;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/books")
@@ -26,10 +28,11 @@ public class BookController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> addBook(@RequestBody Book book) {
+    public ResponseEntity<Void> addBook(@Valid @RequestBody Book book) {
         bookService.addBook(book);
         return ResponseEntity.ok().build();
     }
+
 
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateBook(@PathVariable Long id, @RequestBody Book book) {
@@ -43,6 +46,7 @@ public class BookController {
         return ResponseEntity.ok().build();
     }
 
+    
     @GetMapping("/search")
     public ResponseEntity<List<Book>> searchBooks(@RequestParam String keyword) {
         return ResponseEntity.ok(bookService.searchBooks(keyword));
