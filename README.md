@@ -172,25 +172,25 @@ CREATE TABLE IF NOT EXISTS borrow (
 
 ---
 
-## 🧪 Testing
+### 🧪 Testing
 
-The project includes Postman test output in  [Postman Testing Document](https://github.com/Thirishaa/library-management-system-springboot-jdbc/blob/main/docs/library-management-postman-testing.pdf). It shows the results of key operations:
+The project includes Postman test output in the [Postman Testing Document](https://github.com/Thirishaa/library-management-system-springboot-jdbc/blob/main/docs/library-management-postman-testing.pdf). It shows the results of key operations:
 
-*Add / Get / Update / Delete books
-*Book availability count updates
-*Search books
-*Borrow & return books with availability updates
-*Member CRUD
-*Borrow transaction update & delete
-*Exception: Book Not Found with structured 404 error response
+- Add / Get / Update / Delete books  
+- Book availability count updates  
+- Search books  
+- Borrow & return books with availability updates  
+- Member CRUD  
+- Borrow transaction update & delete  
+- Exception: Book Not Found with structured 404 error response  
 
-📌 Descriptions are brief but operations are verified. See the PDF for request/response details.
+📌 Descriptions are brief but operations are verified. See the PDF for full request/response details.
 
-Run all integration tests:
+Run all integration tests with:
 
 ```bash
 mvn test
-```
+
 
 ---
 
