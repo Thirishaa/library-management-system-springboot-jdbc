@@ -190,6 +190,7 @@ Run all integration tests with:
 
 ```bash
 mvn test
+```
 
 
 ---
