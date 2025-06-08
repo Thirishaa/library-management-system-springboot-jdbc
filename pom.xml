@@ -6,13 +6,13 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.4.5</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath/> 
 	</parent>
 	<groupId>com.library</groupId>
 	<artifactId>library-management</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>library-management</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Library Management System</description>
 	<url/>
 	<licenses>
 		<license/>
@@ -55,19 +55,17 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<!-- Flyway Core -->
 		<dependency>
 		    <groupId>org.flywaydb</groupId>
 		    <artifactId>flyway-core</artifactId>
-		    <version>9.22.3</version> <!-- or latest that supports PostgreSQL 17 -->
+		    <version>9.22.3</version> 
 		</dependency>
-				<!-- JSON support for request/response serialization -->
+				
 		<dependency>
 		    <groupId>com.fasterxml.jackson.core</groupId>
 		    <artifactId>jackson-databind</artifactId>
 		</dependency>
 		
-		<!-- H2 Database for in-memory testing -->
 		<dependency>
 		    <groupId>com.h2database</groupId>
 		    <artifactId>h2</artifactId>
